@@ -32,6 +32,23 @@ docker run -d \
   choffmeister/strongswan:latest
 ```
 
+## Deploy vpn.mobileconfig
+
+```python
+import SimpleHTTPServer
+import SocketServer
+
+class Handler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+    pass
+
+Handler.extensions_map['.mobileconfig'] = 'application/x-apple-aspen-config'
+
+httpd = SocketServer.TCPServer(("", 8000), Handler)
+httpd.serve_forever()
+```
+
+Now open `http://host:8000/vpn.mobileconfig` in the Safari browser on your MacOS/iOS device.
+
 ## Credits
 
 Originally based on [houselabs/strongswan](https://github.com/houselabs/docker-strongswan).
